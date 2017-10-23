@@ -5,6 +5,7 @@ import mount from '~src/mount'
 import VueWrapper from '~src/wrappers/vue-wrapper'
 import Component from '~resources/components/component.vue'
 import ComponentWithChild from '~resources/components/component-with-child.vue'
+import ComponentWithRenderFnChild from '~resources/components/component-with-render-fn-child.vue'
 import ComponentWithNestedChildren from '~resources/components/component-with-nested-children.vue'
 import ComponentWithLifecycleHooks from '~resources/components/component-with-lifecycle-hooks.vue'
 
@@ -38,6 +39,13 @@ describe('shallow', () => {
     expect(wrapper).to.be.instanceOf(VueWrapper)
     expect(wrapper.findAll(Component).length).to.equal(0)
     expect(wrapper.findAll(ComponentWithChild).length).to.equal(1)
+  })
+
+  it('returns new VueWrapper of Vue localVue with all render function children stubbed', () => {
+    const wrapper = shallow(ComponentWithRenderFnChild)
+    expect(wrapper).to.be.instanceOf(VueWrapper)
+    expect(wrapper.findAll(Component).length).to.equal(0)
+    expect(wrapper.findAll(ComponentWithRenderFnChild).length).to.equal(1)
   })
 
   it('does not modify component directly', () => {
